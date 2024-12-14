@@ -1,113 +1,176 @@
-<% layout("/layouts/boilerplate") %>
-<div class="row mt-3">
-  <div class="col-8 offset-2">
-    <h3>Create a New Listing</h3>
-    <form
-      method="POST"
-      action="/listings"
-      novalidate
-      class="needs-validation"
-      enctype="multipart/form-data"
-    >
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input
-          type="text"
-          name="listing[title]"
-          placeholder="Add a chatchy title"
-          class="form-control"
-          required
-        />
-        <div class="invalid-feedback">Please enter a title.</div>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea
-          name="listing[description]"
-          class="form-control"
-          required
-        ></textarea>
-        <div class="invalid-feedback">Please enter a short description.</div>
-      </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">Choose Category</label>
-        <div class="category-choose">
-          <p><b>Single choose :</b> Click &nbsp;&nbsp;</p>
-          <p><b>Multiple choose :</b> Ctrl + Click</p>
-        </div>
-        <select
-          id="category"
-          name="listing[category]"
-          class="form-select border border-black border-opacity-50 mb-3"
-          multiple
-          required
-          style="font-size: 0.95rem"
-        >
-          <option value="Beachfront">Beachfront</option>
-          <option value="Cabins">Cabins</option>
-          <option value="Omg">OMG</option>
-          <option value="Lake">Lake</option>
-          <option value="Design">Design</option>
-          <option value="Amazing Pools">Amazing pools</option>
-          <option value="Farms">Farms</option>
-          <option value="Amazing Views">Amazing views</option>
-          <option value="Rooms">Rooms</option>
-          <option value="Lakefront">Lakefront</option>
-          <option value="Tiny Homes">Tiny homes</option>
-          <option value="Countryside">Countryside</option>
-          <option value="Treehouse">Treehouse</option>
-          <option value="Trending">Trending</option>
-          <option value="Tropical">Tropical</option>
-          <option value="National Parks">National parks</option>
-          <option value="Casties">Casties</option>
-          <option value="Camping">Camping</option>
-          <option value="Top Of The World">Top of the world</option>
-          <option value="Luxe">Luxe</option>
-          <option value="Iconic Cities">Iconic cities</option>
-          <option value="Earth Homes">Earth homes</option>
-        </select>
-        <div class="invalid-feedback">Choose category name</div>
-      </div>
+<style>
+  .card {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
 
-      <div class="mb-3">
-        <label for="image" class="form-label">Upload Image</label>
-        <input type="file" name="listing[image]" class="form-control" />
-      </div>
-      <div class="row">
-        <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
-          <input
-            name="listing[price]"
-            placeholder="1200"
-            class="form-control"
-            required
-          />
-          <div class="invalid-feedback">Price should be valid..</div>
+  @media (max-width: 768px) {
+    .card-header h3 {
+      font-size: 1.5rem;
+    }
+
+    .form-control {
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .d-grid.col-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-2 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card border-0">
+        <div class="card-header bg-dark text-white text-center py-4">
+          <h3>Add Your Home</h3>
         </div>
-        <div class="mb-3 col-md-8">
-          <label for="country" class="form-label">Country</label>
-          <input
-            type="text"
-            name="listing[country]"
-            placeholder="India"
-            class="form-control"
-            required
-          />
-          <div class="invalid-feedback">Country name should be valid.</div>
+        <div class="card-body px-3 py-4 px-md-5">
+          <form
+            method="POST"
+            action="/listings"
+            novalidate
+            class="needs-validation"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-4">
+              <label for="title" class="form-label fw-bold">Title</label>
+              <input
+                type="text"
+                name="listing[title]"
+                placeholder="Add a catchy title"
+                class="form-control shadow-sm"
+                required
+              />
+              <div class="invalid-feedback">Please enter a title.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="description" class="form-label fw-bold">Description</label>
+              <textarea
+                name="listing[description]"
+                class="form-control shadow-sm"
+                rows="4"
+                required
+              ></textarea>
+              <div class="invalid-feedback">Please enter a short description.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="images" class="form-label fw-bold">Upload Images</label>
+              <input
+                type="file"
+                id="images"
+                name="listing[images]"
+                multiple
+                accept="image/*"
+                class="form-control shadow-sm"
+                required
+              />
+              <div class="invalid-feedback">Please upload between Minimum 5 images.</div>
+            </div>
+
+            <div class="row">
+              <div class="mb-4 col-md-4">
+                <label for="price" class="form-label fw-bold">Price</label>
+                <input
+                  name="listing[price]"
+                  placeholder="1200"
+                  class="form-control shadow-sm"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a valid price.</div>
+              </div>
+              <div class="mb-4 col-md-8">
+                <label for="country" class="form-label fw-bold">Country</label>
+                <input
+                  type="text"
+                  name="listing[country]"
+                  placeholder="India"
+                  class="form-control shadow-sm"
+                  required
+                />
+                <div class="invalid-feedback">Please enter a valid country.</div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="location" class="form-label fw-bold">Location</label>
+              <input
+                type="text"
+                name="listing[location]"
+                placeholder="Sitamarhi, Bihar"
+                class="form-control shadow-sm"
+                required
+              />
+              <div class="invalid-feedback">Please enter a valid location.</div>
+            </div>
+
+            <!-- Category Dropdown -->
+            <div class="mb-4">
+              <label for="category" class="form-label fw-bold">Category</label>
+              <select name="listing[category]" class="form-control shadow-sm" required>
+                <option value="" disabled selected>Select a category</option>
+                <% const categories = [
+                  { name: "Beachfront", icon: "1" },
+                  { name: "Cabins", icon: "2" },
+                  { name: "OMG", icon: "3" },
+                  { name: "Lake", icon: "4" },
+                  { name: "Design", icon: "5" },
+                  { name: "Amazing Pools", icon: "6" },
+                  { name: "Farms", icon: "7" },
+                  { name: "Amazing Views", icon: "8" },
+                  { name: "Rooms", icon: "9" },
+                  { name: "Lakefront", icon: "10" },
+                  { name: "Tiny Homes", icon: "11" },
+                  { name: "Countryside", icon: "12" },
+                  { name: "Treehouse", icon: "13" },
+                  { name: "Trending", icon: "14" },
+                  { name: "Tropical", icon: "15" },
+                  { name: "National Parks", icon: "16" },
+                  { name: "Castles", icon: "17" },
+                  { name: "Camping", icon: "18" },
+                  { name: "Top Of The World", icon: "19" },
+                  { name: "Luxe", icon: "20" },
+                  { name: "Iconic Cities", icon: "21" },
+                  { name: "Earth Homes", icon: "22" }
+                ]; %>
+                <% categories.forEach(category => { %>
+                  <option value="<%= category.icon %>"><%= category.name %></option>
+                <% }); %>
+              </select>
+              <div class="invalid-feedback">Please select a category.</div>
+            </div>
+
+            <div class="d-grid col-md-2 col-6 mx-auto">
+              <button class="btn btn-dark shadow-sm">Add Home</button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input
-          type="text"
-          name="listing[location]"
-          placeholder="Sitamarhi, Bihar"
-          class="form-control"
-          required
-        />
-        <div class="invalid-feedback">Location should be valid.</div>
-      </div>
-      <button class="btn btn-dark add-btn mb-5">Add</button>
-    </form>
+    </div>
   </div>
 </div>
+<script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    const imageInput = document.getElementById("images");
+    const fileCount = imageInput.files.length;
+
+    if (fileCount < 1 || fileCount > 5) {
+      e.preventDefault(); // Prevent form submission
+      imageInput.setCustomValidity(
+        "You must upload between 1 and 5 images."
+      );
+      imageInput.reportValidity();
+    } else {
+      imageInput.setCustomValidity(""); // Clear the custom validation message
+    }
+  });
+</script>

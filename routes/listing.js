@@ -21,7 +21,7 @@ const validateListing = (req, res, next) => {
   }
 };
 
-//Index Route
+// Index Route
 router.get(
   "/",
   wrapAsync(async (req, res) => {
@@ -30,25 +30,27 @@ router.get(
   })
 );
 
-//New Route
+// New Route
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("listings/new.ejs");
 });
 
-//Create Route
+// Create Route (Updated for multiple images)
 router.post(
   "/",
   isLoggedIn,
-  upload.single("listing[image]"),
+  upload.array("listing[images]", 5), // Accept up to 5 images
   validateListing,
   async (req, res, next) => {
     try {
-      let url = req.file.path;
-      let filename = req.file.filename;
+      const imageDetails = req.files.map(file => ({
+        url: file.path,
+        filename: file.filename
+      }));
 
       const newListing = new Listing(req.body.listing);
       newListing.owner = req.user._id;
-      newListing.image = { url, filename };
+      newListing.images = imageDetails; // Store the array of images
       await newListing.save();
       req.flash("success", "New Listing Created");
       res.redirect("/listings");
@@ -59,7 +61,8 @@ router.post(
   }
 );
 
-//Show Route
+// Show Route
+// Show Route
 router.get(
   "/:id",
   wrapAsync(async (req, res) => {
@@ -72,29 +75,43 @@ router.get(
         },
       })
       .populate("owner");
+
     if (!listing) {
       req.flash("error", "Listing you requested for does not exist");
       return res.redirect("/listings");
     }
 
-    res.render("listings/show.ejs", { listing });
+    // Calculate the number of reviews
+    const reviewCount = listing.reviews.length;
+
+    let averageRating = 0;
+    if (reviewCount > 0) {
+      const totalRating = listing.reviews.reduce((sum, review) => sum + review.rating, 0);
+      averageRating = (totalRating / reviewCount).toFixed(1); // Rounded to 1 decimal place
+    }
+
+    // Pass reviewCount and listing data to the template
+    res.render("listings/show.ejs", { listing, reviewCount, averageRating });
   })
 );
 
-//Update Route
+
+// Update Route (Updated for multiple images)
 router.put(
   "/:id",
   isLoggedIn,
-  upload.single("listing[image]"),
+  upload.array("listing[images]", 5), // Accept up to 5 images
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-    if (typeof req.file !== "undefined") {
-      let url = req.file.path;
-      let filename = req.file.filename;
-      listing.image = { url, filename };
+    if (req.files && req.files.length > 0) {
+      const imageDetails = req.files.map(file => ({
+        url: file.path,
+        filename: file.filename
+      }));
+      listing.images = imageDetails; // Update the array of images
       await listing.save();
     }
 
@@ -103,7 +120,7 @@ router.put(
   })
 );
 
-//Delete Route
+// Delete Route
 router.delete(
   "/:id",
   isLoggedIn,
@@ -115,7 +132,7 @@ router.delete(
   })
 );
 
-//Edit Route
+// Edit Route
 router.get(
   "/:id/edit",
   isLoggedIn,
@@ -126,10 +143,10 @@ router.get(
       req.flash("error", "Listing you requested for does not exist");
       return res.redirect("/listings");
     }
-    let originalImageUrl = listing.image.url;
 
-    res.render("listings/edit.ejs", { listing, originalImageUrl });
+    res.render("listings/edit.ejs", { listing });
   })
 );
+
 
 module.exports = router;

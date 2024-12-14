@@ -1,25 +1,69 @@
 const express = require("express");
 const router = express.Router();
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
 
+const upload = multer({ storage });
+require("dotenv").config();
+
+router.get("/", (req, res) => {
+  res.render("listings", { user: req.user || null });
+});
+
+// Signup route
 router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
 });
 
+// Users Profile Routes
+router.get("/profile/:id", (req, res) => {
+  res.render("users/profile.ejs", { user: req.user });
+});
+
+// Login route
+router.get("/login", (req, res) => {
+  res.render("users/login.ejs");
+});
+
+// Signup POST route
 router.post(
   "/signup",
-  wrapAsync(async (req, res) => {
+  wrapAsync(async (req, res, next) => {
     try {
-      let { username, email, password } = req.body;
-      const newUser = new User({ username, email });
+      const { name, username, email, password } = req.body;
+
+      // Initialize other profile fields with default values
+      const newUser = new User({
+        name,
+        username,
+        email,
+        socialMediaLinks: {
+          facebook: "",
+          twitter: "",
+          instagram: "",
+          linkedin: "",
+        },
+        profilePicture: "",
+        address: {
+          street: "",
+          city: "",
+          state: "",
+          zipCode: "",
+          country: "",
+        },
+        bio: "",
+      });
+
       const registeredUser = await User.register(newUser, password);
+
       req.login(registeredUser, (err) => {
-        if (err) {
-          return next(err);
-        }
+        if (err) return next(err);
         req.flash("success", "Welcome to HeavenStay!");
         res.redirect("/listings");
       });
@@ -30,10 +74,7 @@ router.post(
   })
 );
 
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs");
-});
-
+//Login POST route
 router.post(
   "/login",
   saveRedirectUrl,
@@ -48,14 +89,209 @@ router.post(
   }
 );
 
-router.get("/logout", (req, res) => {
+//login route
+router.post(
+  "/login",
+  saveRedirectUrl,  // Save the redirect URL before authentication
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    req.flash("success", "Welcome back to HeavenStay!");
+    let redirect = res.locals.redirectUrl || "/listings";  // Redirect to saved URL or default
+    res.redirect(redirect);
+  }
+);
+
+// Logout route
+router.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
+      console.error("Logout error:", err);
       return next(err);
     }
-    req.flash("success", "You are logged out!");
-    res.redirect("/listings");
+
+    req.session.destroy((err) => {
+      if (err) {
+        return res.redirect("/listings");
+      }
+
+      // Log session destruction
+      console.log("User session has been destroyed.");
+
+      res.clearCookie("connect.sid"); // Clear the session cookie
+      req.flash("success", "You are logged out!");
+      res.redirect("/listings");
+    });
   });
 });
+
+// Forgot Password route
+router.get("/forgot-password", (req, res) => {
+  res.render("forgot-password.ejs");
+});
+
+// Forgot password POST route
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      req.flash("error", "No account with that email exists.");
+      return res.redirect("/forgot-password");
+    }
+
+    // Generate token and expiration
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send reset link via email
+    const transporter = nodemailer.createTransport({
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      auth: {
+        user: process.env.EMAIL, // Get email from .env
+        pass: process.env.EMAIL_PASSWORD, // Get password from .env
+      },
+    });
+
+    // Send reset email
+    const resetLink = `http://localhost:4000/reset-password/${resetToken}`;
+    const mailOptions = {
+      to: user.email,
+      from: "ratneshkumarbhr987@gmail.com",
+      subject: "Password Reset Request",
+      html: `
+        <p>Hello,</p>
+        <p>You requested a password reset. Click the link below to reset your password:</p>
+        <a href="${resetLink}">Reset Password</a>
+        <p>If you didn't request this, please ignore this email.</p>
+      `,
+    };
+    await transporter.sendMail(mailOptions);
+
+    req.flash("success", "A password reset link has been sent to your email.");
+    res.redirect("/forgot-password");
+  } catch (error) {
+    console.error("Error in forgot-password route:", error);
+    req.flash("error", "Something went wrong, please try again.");
+    res.redirect("/forgot-password");
+  }
+});
+
+// Reset Password route
+router.get("/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/forgot-password");
+    }
+
+    res.render("reset-password", { token });
+  } catch (error) {
+    console.error("Error in reset-password route:", error);
+    req.flash("error", "Something went wrong, please try again.");
+    res.redirect("/forgot-password");
+  }
+});
+
+router.post("/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/forgot-password");
+    }
+
+    // Use Passport's setPassword method for secure hashing
+    await user.setPassword(password);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    req.flash("success", "Your password has been successfully updated.");
+    res.redirect("/login");
+  } catch (error) {
+    console.error("Error in reset-password route:", error);
+    req.flash("error", "Something went wrong, please try again.");
+    res.redirect("/forgot-password");
+  }
+});
+
+// Edit Profile (PUT route)
+router.put(
+  "/profile",
+  upload.single("profilePicture"),
+  wrapAsync(async (req, res) => {
+    try {
+      const userId = req.user._id; // Ensure `req.user` exists and contains `_id`.
+
+      const { name, bio, socialMediaLinks, address } = req.body;
+
+      let profilePicture = req.user.profilePicture;
+
+      if (req.file) {
+        profilePicture = req.file.path; // Assign new picture path if uploaded.
+      }
+
+      // Validate and update the user:
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { name, bio, profilePicture, socialMediaLinks, address },
+        { new: true, runValidators: true }
+      );
+
+      if (!updatedUser) {
+        req.flash("error", "User not found.");
+        return res.redirect("/profile");
+      }
+
+      req.flash("success", "Profile updated successfully!");
+      res.redirect("/profile");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      req.flash("error", "Error updating profile.");
+      res.redirect("/profile");
+    }
+  })
+);
+
+
+// Route to initiate Google login
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  })
+);
+
+// Route to handle the callback from Google
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+  }),
+  (req, res) => {
+    res.redirect("/listings"); // Redirect after successful login
+  }
+);
 
 module.exports = router;

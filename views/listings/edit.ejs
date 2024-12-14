@@ -32,21 +32,31 @@
           rows="4"
           required
         >
-          <%= listing.description %></textarea
-        >
-
+          <%= listing.description %></textarea>
         <div class="invalid-feedback">Please enter a short description.</div>
       </div>
 
       <div class="mb-3">
-        <p>Current Listing Image</p>
-        <img
-          src="<%= originalImageUrl %>"
-          alt="Listing Image"
-          width="250"
-          height="150"
-          class="img-thumbnail"
-        />
+        <p>Current Listing Images</p>
+        <% if (listing.images.length > 0) { %>
+          <% listing.images.forEach(image => { %>
+            <img
+              src="<%= image.url %>"
+              alt="Listing Image"
+              width="250"
+              height="150"
+              class="img-thumbnail mb-2"
+            />
+          <% }); %>
+        <% } else { %>
+          <img
+            src="https://via.placeholder.com/500x500"
+            alt="No images available"
+            width="250"
+            height="150"
+            class="img-thumbnail"
+          />
+        <% } %>
       </div>
 
       <div class="mb-3">
@@ -55,7 +65,9 @@
           type="file"
           id="image"
           class="form-control"
-          name="listing[image]"
+          name="listing[images]"
+          multiple
+          accept="image/*"
         />
       </div>
 
@@ -101,7 +113,41 @@
         <div class="invalid-feedback">Please enter a valid location.</div>
       </div>
 
-      <button type="submit" class="btn btn-dark edit-btn mb-5">Save</button>
+      <!-- Category Dropdown -->
+      <div class="mb-3">
+        <label for="category" class="form-label fw-bold">Category</label>
+        <select
+          name="listing[category]"
+          class="form-control shadow-sm"
+          required
+        >
+          <option value="Beachfront" <% if(listing.category === 'Beachfront') { %> selected <% } %>>Beachfront</option>
+          <option value="Cabins" <% if(listing.category === 'Cabins') { %> selected <% } %>>Cabins</option>
+          <option value="OMG" <% if(listing.category === 'OMG') { %> selected <% } %>>OMG</option>
+          <option value="Lake" <% if(listing.category === 'Lake') { %> selected <% } %>>Lake</option>
+          <option value="Design" <% if(listing.category === 'Design') { %> selected <% } %>>Design</option>
+          <option value="Amazing Pools" <% if(listing.category === 'Amazing Pools') { %> selected <% } %>>Amazing Pools</option>
+          <option value="Farms" <% if(listing.category === 'Farms') { %> selected <% } %>>Farms</option>
+          <option value="Amazing Views" <% if(listing.category === 'Amazing Views') { %> selected <% } %>>Amazing Views</option>
+          <option value="Rooms" <% if(listing.category === 'Rooms') { %> selected <% } %>>Rooms</option>
+          <option value="Lakefront" <% if(listing.category === 'Lakefront') { %> selected <% } %>>Lakefront</option>
+          <option value="Tiny Homes" <% if(listing.category === 'Tiny Homes') { %> selected <% } %>>Tiny Homes</option>
+          <option value="Countryside" <% if(listing.category === 'Countryside') { %> selected <% } %>>Countryside</option>
+          <option value="Treehouse" <% if(listing.category === 'Treehouse') { %> selected <% } %>>Treehouse</option>
+          <option value="Trending" <% if(listing.category === 'Trending') { %> selected <% } %>>Trending</option>
+          <option value="Tropical" <% if(listing.category === 'Tropical') { %> selected <% } %>>Tropical</option>
+          <option value="National Parks" <% if(listing.category === 'National Parks') { %> selected <% } %>>National Parks</option>
+          <option value="Castles" <% if(listing.category === 'Castles') { %> selected <% } %>>Castles</option>
+          <option value="Camping" <% if(listing.category === 'Camping') { %> selected <% } %>>Camping</option>
+          <option value="Top Of The World" <% if(listing.category === 'Top Of The World') { %> selected <% } %>>Top Of The World</option>
+          <option value="Luxe" <% if(listing.category === 'Luxe') { %> selected <% } %>>Luxe</option>
+          <option value="Iconic Cities" <% if(listing.category === 'Iconic Cities') { %> selected <% } %>>Iconic Cities</option>
+          <option value="Earth Homes" <% if(listing.category === 'Earth Homes') { %> selected <% } %>>Earth Homes</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+      </div>
+
+      <button type="submit" class="btn col-lg-8 offset-lg-2 btn-dark edit-btn mb-5">Save</button>
     </form>
   </div>
 </div>

@@ -1,9 +1,10 @@
 <style>
   .btn-search {
-    background-color: #fe424d;
+    background-color: #232f37;
     color: #fff;
-    border-radius: 5rem;
-    padding: 0 1rem 0 1rem;
+    padding: 8px 14px !important;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
   }
   .btn-search:hover {
     background-color: #fe424d;
@@ -11,15 +12,200 @@
   }
   .input {
     border-radius: 5rem;
-    padding: 0.5rem 3rem 0.5rem 3rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+  .navbar {
+    padding: 5px 20px;
+    background-color: #f7f7f7;
+  }
+  .navbar-brand img {
+    height: auto;
+    width: 150px;
+  }
+  .links .nav-link {
+    padding: 10px 20px;
+    border: none;
+    background-color: #232f37;
+    color: white;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  .links .nav-link:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+  /* Background color for toggled navbar */
+  .navbar-collapse.show {
+    background-color: #acadad; /* Light background */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .search-result-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  .search-result-item:hover {
+    background: #f7f7f7;
+  }
+
+  /* Custom styling for the dropdown */
+  .navbar .dropdown .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Profile icon styling */
+  .dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 60px;
+    padding: 0.4rem 1rem;
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .dropdown:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+  
+  /* Globe Icon */
+  .globe-icon {
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .navbar .dropdown .dropdown-toggle img {
+    object-fit: cover;
+    border: 2px solid #ddd;
+    padding: 2px;
+    border-radius: 50%;
+  }
+
+  /* Custom dropdown menu */
+  .navbar .dropdown-menu.custom-dropdown {
+    margin-top: 10px;
+    min-width: 200px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+  }
+
+  /* Add hover effects for the dropdown items */
+  .navbar .dropdown-menu.custom-dropdown .dropdown-item {
+    font-size: 1rem;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover effect on dropdown items */
+  .navbar .dropdown-menu.custom-dropdown .dropdown-item:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  /* Add a subtle hover effect for the login/register links */
+  .navbar .dropdown-menu.custom-dropdown .dropdown-item:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+
+  /* Customize the logout link */
+  .navbar .dropdown-menu.custom-dropdown .dropdown-item.text-danger {
+    color: #dc3545;
+  }
+
+  .navbar .dropdown-menu.custom-dropdown .dropdown-item.text-danger:hover {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  /* Icon Style */
+hr.dropdown-divider {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 5px 0;
+}
+
+.dropdown-item i {
+  margin-right: 8px;
+  font-size: 18px;
+  color: #555; 
+  transition: color 0.3s ease, transform 0.3s ease; 
+}
+
+.dropdown-item:hover i {
+  color: #ffffff;
+  transform: scale(1.2); 
+}
+
+
+  @media (max-width: 768px) {
+    .navbar-brand img {
+      width: 140px;
+    }
+    .btn-search {
+      padding: 5px 12px;
+      border-radius: 50%;
+    }
+    .links {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+    }
+    .links .nav-link {
+      padding: 8px 20px;
+      border-radius: 20px;
+    }
+    .links a {
+      font-size: 13px;
+    }
+  }
+  @media (max-width: 576px) {
+    .navbar-brand img {
+      width: 100px;
+    }
+    .btn-search {
+      padding: 8px 12px;
+      border-radius: 20px;
+    }
+    .input {
+      padding: 0.4rem;
+    }
   }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"
-      ><i class="fa-solid fa-compass"></i
-    ></a>
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <img src="/image/Logo.png" alt="HeavenStay" />
+    </a>
+    <!-- Toggler for Mobile -->
     <button
       class="navbar-toggler"
       type="button"
@@ -31,32 +217,181 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Navbar Items -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+      <!-- Search Bar -->
+      <div class="navbar-nav me-auto">
+        <form
+          class="d-flex mb-2 mb-md-0 position-relative"
+          id="global-search-form"
+          role="search"
+        >
           <input
             class="form-control me-2 input"
             type="search"
-            placeholder="Search destination"
+            placeholder="Search across the app"
             aria-label="Search"
+            id="global-search-input"
           />
           <button class="btn btn-search" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
+          <div class="search-results" id="search-results"></div>
         </form>
       </div>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Add Your Home</a>
-        <% if(!currentUser){ %>
-        <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
-        <% } %> <% if(currentUser){ %>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        <% } %>
+      <!-- Links -->
+      <div class="navbar-nav ms-auto links gap-2 d-flex">
+        <a class="nav-link text-white" href="/listings/new">Add Your Home</a>
       </div>
+      
+      <!-- Globe Icon -->
+      <i class="fa fa-globe fa-lg me-3 globe-icon"></i>
+
+      <!-- User Profile Dropdown -->
+      <div class="dropdown d-flex align-items-center">
+        
+        <i
+          class="nav-link fa fa-bars fa-lg me-3 menu-icon"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          role="button"
+          id="userDropdown"
+        ></i>
+        <!-- Profile Dropdown -->
+        <a
+        class="nav-link user-profile-icon d-flex align-items-center"
+        href=""
+        id="userDropdown"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        >
+          <% if (currentUser) { %>
+          <img
+            src="<%= currentUser.profilePicture %>"
+            alt="Profile"
+            class="rounded-circle profile-picture"
+            width="35"
+            height="35"
+          />
+          <% } else { %>
+          <img
+            src="/image/user.jpg"
+            alt="Profile"
+            class="rounded-circle profile-picture"
+            width="35"
+            height="35"
+          />
+          <% } %>
+        </a>
+      
+        <!-- Dropdown Menu -->
+        <ul
+          class="dropdown-menu dropdown-menu-end custom-dropdown"
+          aria-labelledby="userDropdown"
+        >
+          <% if (!currentUser) { %>
+            <li>
+              <a class="dropdown-item" href="/login">
+                <i class="fa fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/signup">
+                <i class="fa fa-user-plus"></i> Register
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/listings/new">
+                <i class="fa fa-home"></i> Add Your Home
+              </a>
+            </li>
+          <% } else { %>
+            <li>
+              <a class="dropdown-item">
+                <i class="fa fa-user"></i> Welcome, <%= currentUser.name %>
+              </a>
+            </li>
+            <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item" href="/profile/<%= currentUser._id %>">
+                <i class="fa fa-id-card"></i> Profile
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/listings/new">
+                <i class="fa fa-plus-circle"></i> Add Your Home
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/settings">
+                <i class="fa fa-cogs"></i> Settings
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item text-danger" href="/logout">
+                <i class="fa fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+      
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("global-search-input");
+    const searchResults = document.createElement("div");
+    searchResults.className = "search-results";
+    searchInput.parentNode.appendChild(searchResults);
+
+    searchInput.addEventListener("input", async function () {
+      const query = searchInput.value.trim();
+      if (query.length < 3) {
+        searchResults.innerHTML = ""; // Clear results for short queries
+        return;
+      }
+
+      // Show a loading message
+      searchResults.innerHTML =
+        '<div class="search-result-item">Loading...</div>';
+
+      try {
+        const response = await fetch(
+          `/api/global-search?q=${encodeURIComponent(query)}`
+        );
+        const { results } = await response.json();
+
+        if (!results || results.length === 0) {
+          searchResults.innerHTML =
+            '<div class="search-result-item">No results found!</div>';
+          return;
+        }
+
+        searchResults.innerHTML = results
+          .map(
+            (item) =>
+              `<div class="search-result-item" onclick="window.location.href='${item.url}'">${item.name}</div>`
+          )
+          .join("");
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        searchResults.innerHTML =
+          '<div class="search-result-item">Error fetching results!</div>';
+      }
+    });
+
+    // Close results dropdown if clicked outside
+    document.addEventListener("click", function (e) {
+      if (
+        !searchInput.contains(e.target) &&
+        !searchResults.contains(e.target)
+      ) {
+        searchResults.innerHTML = "";
+      }
+    });
+  });
+</script>

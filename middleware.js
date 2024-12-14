@@ -2,6 +2,7 @@ const Listing = require("./models/listing.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { reviewSchema } = require("./schema.js");
 const Review = require("./models/review");
+const User = require("./models/user.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -11,6 +12,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   }
   next();
 };
+
 
 module.exports.saveRedirectUrl = (req, res, next) => {
   if (req.session.redirectUrl) {

@@ -1,0 +1,50 @@
+<!-- views/404.ejs -->
+<style>
+  .page-not-found {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #495057;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-not-found h1 {
+    font-size: 10rem;
+    font-weight: 700;
+    color: #ffc107;
+  }
+
+  .page-not-found h2 {
+    font-size: 3rem;
+    color: #ffffff;
+  }
+
+  .page-not-found p {
+    font-size: 1.25rem;
+    color: #dcdcdc;
+  }
+
+  .page-not-found a.btn {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+  }
+
+  .page-not-found a.btn:hover {
+    background-color: #e8a200;
+    text-decoration: none;
+  }
+</style>
+
+<% layout("/layouts/boilerplate") %>
+<div class="container text-center py-5 page-not-found">
+  <h1 class="display-1 mb-4">404</h1>
+  <h2 class="display-4 mb-4">Page Not Found</h2>
+  <p class="lead mb-4">Sorry, the page you're looking for does not exist.</p>
+  <a href="/listings" class="btn btn-lg btn-primary px-4 py-3">Go Home</a>
+</div>

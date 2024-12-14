@@ -1,40 +1,84 @@
+<style>
+  .card{
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+</style>
+
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">SignUp on HeavenStay</h1>
-  <div class="col-6 offset-3">
-    <form action="/signup" method="POST" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="form-control"
-          required
-        />
-        <div class="invalid-feedback">Looks good!</div>
+<div class="container mt-2 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card border-0">
+        <div class="card-header bg-success text-white text-center py-4">
+          <h1 class="h3">Sign Up on HeavenStay</h1>
+        </div>
+        <div class="card-body px-5 py-4">
+          <form action="/signup" method="POST" class="needs-validation" novalidate>
+
+            <div class="mb-4">
+              <label for="name" class="form-label fw-bold">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control shadow-sm"
+                placeholder="Write ypur username"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="username" class="form-label fw-bold">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control shadow-sm"
+                placeholder="Choose a username"
+                required
+              />
+              <div class="invalid-feedback">Please choose a valid username.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="email" class="form-label fw-bold">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control shadow-sm"
+                placeholder="Enter your email"
+                required
+              />
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="password" class="form-label fw-bold">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control shadow-sm"
+                placeholder="Create a password"
+                required
+              />
+              <div class="invalid-feedback">Password is required.</div>
+            </div>
+
+            <div class="d-grid col-2">
+              <button class="btn btn-success shadow-sm">Sign Up</button>
+            </div>
+
+            <div class="text-center mt-4">
+              <p class="text-muted">
+                Already have an account? 
+                <a href="/login" class="text-decoration-none">Log In</a>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-control"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="form-control"
-          required
-        />
-        <button class="btn btn-success mt-3">SignUp</button>
-    </form>
+    </div>
   </div>
 </div>

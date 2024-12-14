@@ -2,7 +2,7 @@ body{
     font-family: "Poppins", sans-serif !important;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 150vh;
 }
 
 .container{
@@ -11,7 +11,7 @@ body{
 
 /* Navbar */
 .navbar{
-     height: 5rem;
+     height: 4.5rem;
      background-color: #fff;
 }
 
@@ -29,7 +29,6 @@ body{
     display: flex;
     justify-content: center;
     text-align: center;
-    height: 8rem;
     background-color: #ebebeb;
     flex-wrap: wrap;
 }
@@ -39,7 +38,7 @@ body{
 }
 
 .f-info-links a:hover{
-    text-decoration: underline;
+    color: black;
 }
 
 .f-info-links, .f-info-socials, .f-info-brand{
@@ -49,22 +48,8 @@ body{
     justify-content: center;
 }
 
-.f-info-socials i{
-    font-size: 1.2rem;
-    margin-right: 1rem;
-}
-
 /* Cards */
-.listing-card{
-    border: none !important;
-    margin-bottom: 2rem;
-}
 
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-}
 
 .card-body{
     padding: 0 !important;
@@ -81,11 +66,6 @@ body{
 /* Card Effect */
 .card-img-overlay{
     opacity: 0;
-}
-
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color: #fff;
 }
 
 /* New Page && Edit Page */

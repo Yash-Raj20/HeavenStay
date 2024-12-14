@@ -1,30 +1,91 @@
+<style>
+  .card{
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+
+  .social-login-text {
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 10px;
+  }
+
+.social-links a{
+  padding: 8px;
+  text-decoration: none;
+}
+.social-links span{
+  color: rgb(32, 32, 32);
+  font-weight: 500;
+}
+</style>
+
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Login on HeavenStay</h1>
-  <div class="col-6 offset-3">
-    <form action="/login" method="POST" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="form-control"
-          required
-        />
-        <div class="invalid-feedback">Please enter valid username</div>
+<div class="container mt-2 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card border-0">
+        <div class="card-header bg-success text-white text-center py-4">
+          <h1 class="h3">Login to HeavenStay</h1>
+        </div>
+        <div class="card-body px-5 py-4">
+          <h1 class="text-center h3 mb-3">Welcome Back!</h1>
+          <form action="/login" method="POST" class="needs-validation" novalidate>
+            <div class="mb-4">
+              <label for="username" class="form-label fw-bold">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control shadow-sm"
+                placeholder="Enter your username"
+                required
+              />
+              <div class="invalid-feedback">Please enter a valid username.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="password" class="form-label fw-bold">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control shadow-sm"
+                placeholder="Enter your password"
+                required
+              />
+              <div class="invalid-feedback">Please enter your password.</div>
+            </div>
+
+            <div class="d-grid col-2">
+              <button class="btn btn-success shadow-sm">Login</button>
+            </div>
+
+            <div class="text-center mt-4">
+              <a href="/forgot-password" class="text-decoration-none text-muted">
+                Forgot your password? Get help
+              </a>
+              <hr>
+              <p class="social-login-text">Or login with</p>
+              <div class="social-links mb-3">
+                <a href="/auth/google" class="social-btn google-btn">
+                  <img src="/image/google.svg" width="25" height="25"/>
+                  <span>Google</span>
+                </a>
+                <a href="/auth/facebook" class="social-btn facebook-btn">
+                  <img src="/image/facebook.svg" width="25" height="25"/>
+                  <span>Facebook</span>
+                </a>
+                <a href="/auth/linkedin" class="social-btn linkedin-btn">
+                  <img src="/image/linkedin.svg" width="25" height="25"/>
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="form-control"
-          required
-        />
-        <button class="btn btn-success mt-3">Login</button>
-    </form>
+    </div>
   </div>
 </div>
+

@@ -1,15 +1,211 @@
-<footer>
-  <div class="f-info">
-    <div class="f-info-socials">
-      <i class="fa-brands fa-square-facebook"></i>
-      <i class="fa-brands fa-square-instagram"></i>
-      <i class="fa-brands fa-linkedin"></i>
-      <i class="fa-brands fa-square-x-twitter"></i>
-    </div>
-    <div class="f-info-brand">&copy; HeavenStay Private Limites</div>
-    <div class="f-info-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
+<style>
+  /* Footer Styles */
+  footer {
+    background: linear-gradient(145deg, #212529, #343a40);
+    color: #ffffff;
+  }
+
+  .footer-heading {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+
+  .footer-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+  }
+
+  /* Links Style */
+  .footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #fe424d;
+    text-decoration: underline;
+  }
+
+  /* Social Media Icons */
+  .social-icons a {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-right: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    transform: scale(1.2);
+    color: #fe424d;
+  }
+
+  /* Newsletter Form */
+  .newsletter-form {
+    background-color: #343a40;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .newsletter-form input {
+    width: 75%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .newsletter-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #fe424d;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .newsletter-form button:hover {
+    background-color: #d83c46;
+  }
+  .github{
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .footer-logo {
+      height: 60px;
+    }
+
+    .footer-heading {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .social-icons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .social-icons a {
+      font-size: 1.6rem;
+      margin: 0 10px;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .newsletter-form button {
+      width: 100%;
+    }
+
+    .site-map {
+      text-align: center;
+    }
+  }
+</style>
+
+
+<footer class="py-5">
+  <div class="container-lg">
+    <div class="row">
+      <!-- Logo and Social Links -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="footer-menu">
+          <a href="/listings"><img src="/image/footer-logo.png" width="240" height="70" alt="logo"></a>
+          <div class="social-links mt-3 mb-3">
+            <div class="col-auto social-icons">
+              <a href="#" class="hover-effect"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" class="hover-effect"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="hover-effect"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="#" class="hover-effect"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+          </div>
+          <p class="footer-text">We provide luxurious and peaceful stays in scenic locations. Our mission is to make every vacation unforgettable.</p>
+        </div>
+      </div>
+      <!-- Organic Links -->
+      <div class="col-md-2 col-sm-6">
+        <div class="footer-menu">
+          <h5 class="widget-title">Site Map</h5>
+          <ul class="menu-list list-unstyled">
+            <li><a href="/" class="footer-link">Home</a></li>
+          <li><a href="/about" class="footer-link">About Us</a></li>
+          <li><a href="/listings" class="footer-link">Listings</a></li>
+          <li><a href="/contact" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Quick Links -->
+      <div class="col-md-2 col-sm-6">
+        <div class="footer-menu">
+          <h5 class="widget-title">Quick Links</h5>
+          <ul class="menu-list list-unstyled">
+            <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
+          <li><a href="/terms" class="footer-link">Terms & Conditions</a></li>
+          <li><a href="/contact" class="footer-link">Contact Us</a></li>
+          <li><a href="/faq" class="footer-link">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Customer Service Links -->
+      <div class="col-md-2 col-sm-6">
+        <div class="footer-menu">
+          <h5 class="widget-title">Customer Service</h5>
+          <ul class="menu-list list-unstyled">
+            <p class="footer-text">Email: support@heavenstay.com</p>
+        <p class="footer-text">Phone: +123 456 7890</p>
+        <p class="footer-text">Address: 123 Vacation St., Dream City, Country</p>
+          </ul>
+        </div>
+      </div>
+      <!-- Subscribe Section -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="footer-menu">
+          <h5 class="widget-title">Subscribe Us</h5>
+          <p>Subscribe to our newsletter to get updates about our grand offers.</p>
+          <div class="newsletter-form col-md-12">
+            <input type="email" class="form-control" placeholder="Enter your email" required>
+            <button type="submit" class="btn col-md-5">Subscribe</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
+<div id="footer-bottom" class="py-3 bg-dark">
+  <div class="container-lg">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-0 fw-bold text-white">&copy; <span id="year"></span>2024 HeavenStay Private Limited. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-start text-md-end">
+        <p class="mb-0 fw-bold">
+          <a class="github" href="https://github.com/Yash-Raj20"><i class="fa-brands fa-github"></i> Yash Raj</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>

@@ -49,10 +49,12 @@
   z-index: 100;
   transition: all 0.2s ease-out;
 }
+#slideButton:hover{
+  background-color: #000;
+}
 
 #slideButton:active {
   transform: scale(1.2);
-  background-color: black;
 }
 
 #slideButton > i {
@@ -114,6 +116,7 @@
   justify-content: center;
   background-color: rgb(255, 255, 255);
   font-weight: 500;
+  margin-left: 30px;
 }
 
 .tax-toggle:hover {
@@ -168,6 +171,33 @@
   font-size: 0.7rem;
   color: black;
 }
+
+/* @media (max-width: 1024px){
+  .tax-toggle {
+    display: block;
+    position: sticky !important;
+    top: calc(8rem - 0.5px) !important;
+    z-index: 15;
+    margin: 0px auto !important;
+    padding: 0.6rem 2rem 1rem 0rem;
+    border: 0.5px solid rgba(128, 128, 128, 0.703);
+  }
+  .tax-filter {
+    display: none;
+  }
+
+  .tax-filter-icon {
+    display: none;
+  }
+
+  .tax-filter-icon-small {
+    min-width: 35px;
+    padding-left: 18px;
+    padding-top: 12px;
+    margin: 25px 0px !important;
+    display: block;
+  }
+} */
 
 @media (max-width: 767px) {
   .tax-toggle {

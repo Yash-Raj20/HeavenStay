@@ -1,5 +1,6 @@
 // filters icon -----------------------------------
 const filters = document.querySelectorAll(".filter");
+
 // Function to apply styles based on the selected filter
 function applyStyles(selectedFilter) {
   // Remove 'selected' class from all filters
@@ -24,8 +25,12 @@ filters.forEach((filter) => {
     localStorage.setItem("selectedFilter", element);
     // Apply styles
     applyStyles(element);
+
+    // Check if there are listings in this category (you can adjust the logic as needed)
+    checkCategoryListings(element);
   });
 });
+
 // On page load, check if a filter was previously selected and apply styles
 const storedFilter = localStorage.getItem("selectedFilter");
 if (storedFilter) {
@@ -53,3 +58,9 @@ filtersBox.addEventListener("scroll", () => {
   console.log(filtersBox.scrollWidth);
   console.log(filtersBox.scrollWidth - filtersBox.clientWidth);
 });
+
+
+const filterElements = document.querySelectorAll('.filter');
+filterElements.forEach(filter => filter.addEventListener('click', () => {
+  console.log(`Clicked on ${filter.querySelector('p').textContent}`);
+}));

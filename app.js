@@ -19,12 +19,15 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const globalSearchRouter = require("./routes/globalSearch.js");
+
+require("./utils/passport.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
-    console.log("connect to DB");
+    console.log("connected to DB");
   })
   .catch((error) => {
     console.log(error);
@@ -46,13 +49,14 @@ mongoose
   .catch((err) => {
     console.error("Failed to connect to MongoDB:", err);
   });
-
+  
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
@@ -86,18 +90,26 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/global-search", globalSearchRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+// Catch-all route for 404 errors (Page Not Found)
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });
 
+// Error handler middleware
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Something went wrong!";
-  res.status(statusCode).send(err.message);
+  if (statusCode === 404) {
+    // Render the 404 page if the error is a 404
+    res.status(404).render("pageNotFound"); // Render the 404 page (pageNotFound.ejs)
+  } else {
+    res.status(statusCode).send(err.message);
+  }
 });
 
 app.listen(8080, () => {
