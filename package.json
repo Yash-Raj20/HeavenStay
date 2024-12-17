@@ -1,17 +1,20 @@
 {
   "engines": {
-    "node": "23.4.0"
+    "node": ">=18.0.0"
   },
   "name": "heavenstay",
   "version": "1.0.0",
-  "description": "",
+  "description": "A full-stack web application for managing hospitality services.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js", 
+    "dev": "nodemon index.js",
+    "build:frontend": "cd client && npm install && npm run build", 
+    "test": "echo \"No tests specified\" && exit 1" 
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["hospitality", "fullstack", "management"],
+  "author": "Ratnesh Kumar",
   "license": "ISC",
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
@@ -32,12 +35,14 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.9.16",
-    "nodemon": "^3.1.4",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
     "react-hot-toast": "^2.4.1",
     "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
