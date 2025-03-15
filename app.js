@@ -20,6 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const globalSearchRouter = require("./routes/globalSearch.js");
+const pageRoutes =require("./routes/pageRoutes.js")
 
 require("./utils/passport.js");
 
@@ -90,6 +91,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/", pageRoutes);
 app.use("/api/global-search", globalSearchRouter);
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);

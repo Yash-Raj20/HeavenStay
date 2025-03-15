@@ -1,5 +1,4 @@
 <style>
-
   /* Profile Card */
   .profile-card {
     display: flex;
@@ -14,31 +13,47 @@
     margin-bottom: 20px;
   }
 
+  /* Cover Photo */
+  .cover-photo {
+    width: 100%;
+    height: 200px; /* Adjust as needed */
+    position: relative;
+    overflow: hidden;
+    background-color: #ddd; /* Fallback color */
+    border-radius: 15px 15px 0 0; /* Rounded corners only at the top */
+  }
+
+  .cover-photo img {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   .container {
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 25px 5px;
     position: relative;
   }
 
- /* Profile Avatar Wrapper - Adjust to Position Half Over the Card */
-.profile-avatar-wrapper {
-  position: absolute;
-  top: -75px; /* Moves the image upward */
-  left: 50%; /* Centers the image horizontally */
-  transform: translateX(-50%);
-  z-index: 10;
-}
+  /* Profile Avatar Wrapper - Adjust to Position Half Over the Card */
+  .profile-avatar-wrapper {
+    position: absolute;
+    top: -75px; /* Moves the image upward */
+    left: 50%; /* Centers the image horizontally */
+    transform: translateX(-50%);
+    z-index: 10;
+  }
 
-/* Profile Avatar - Circular with Shadow */
-.profile-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 5px solid #fe424d;
-  object-fit: cover;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
+  /* Profile Avatar - Circular with Shadow */
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #fe424d;
+    object-fit: cover;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
   .profile-info {
     flex: 1;
@@ -70,7 +85,7 @@
     transition: background-color 0.3s ease;
     z-index: 12;
   }
-  
+
   .edit-btn:hover {
     background-color: #ff6f75;
     opacity: 0.9;
@@ -82,18 +97,17 @@
     color: #fe424d;
     margin-right: 15px;
     transition: transform 0.3s ease;
-}
+  }
 
-.social-links a i {
+  .social-links a i {
     border-radius: 50%;
     transition: transform 0.3s ease;
-}
+  }
 
-.social-links a i:hover {
+  .social-links a i:hover {
     margin-right: 5px;
     transform: scale(1.8);
-}
-
+  }
 
   /* Tabs */
   .tabs {
@@ -164,68 +178,67 @@
     margin-bottom: 10px;
   }
 
- /* Custom Styling for Counter Section */
-.custom-counter {
-  background: linear-gradient(135deg, #f6d365, #fda085);
-  padding: 20px 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for Each Counter Box */
-.custom-count-data {  
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.custom-count-data:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.custom-count-data .custom-count {
-  font-size: 48px;
-  font-weight: 700;
-  color: #ff6f61;
-  animation: fadeInUp 1s ease-out;
-}
-
-.custom-count-data p {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-top: 10px;
-}
-
-/* Row layout adjustments */
-.custom-counter-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-/* Ensure the columns take up 4 in a row on large screens */
-.custom-count-column {
-  flex: 1;
-  text-align: center;
-}
-
-
-/* Animation for Counter Numbers */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
+  /* Custom Styling for Counter Section */
+  .custom-counter {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    padding: 20px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+
+  /* Styling for Each Counter Box */
+  .custom-count-data {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-}
+
+  .custom-count-data:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-count-data .custom-count {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ff6f61;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .custom-count-data p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 10px;
+  }
+
+  /* Row layout adjustments */
+  .custom-counter-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  /* Ensure the columns take up 4 in a row on large screens */
+  .custom-count-column {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Animation for Counter Numbers */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   /* Responsive Design */
   @media (max-width: 768px) {
@@ -245,177 +258,202 @@
     .count-data {
       padding: 15px;
     }
-  
+
     .count {
       font-size: 36px;
     }
   }
 
-/* About Me 
+  /* About Me 
 ---------------------*/
-.about-text h3 {
-  font-size: 45px;
-  font-weight: 700;
-  margin: 0 0 6px;
-}
-@media (max-width: 767px) {
   .about-text h3 {
-    font-size: 35px;
+    font-size: 45px;
+    font-weight: 700;
+    margin: 0 0 6px;
   }
-}
-.about-text h6 {
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-@media (max-width: 767px) {
+  @media (max-width: 767px) {
+    .about-text h3 {
+      font-size: 35px;
+    }
+  }
   .about-text h6 {
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  @media (max-width: 767px) {
+    .about-text h6 {
+      font-size: 18px;
+    }
+  }
+  .about-text p {
     font-size: 18px;
+    max-width: 450px;
   }
-}
-.about-text p {
-  font-size: 18px;
-  max-width: 450px;
-}
-.about-text p mark {
-  font-weight: 600;
-  color: #20247b;
-}
-
-.about-list {
-  padding-top: 10px;
-}
-.about-list .media {
-  padding: 5px 0;
-}
-.about-list label {
-  color: #20247b;
-  font-weight: 600;
-  width: 88px;
-  margin: 0;
-}
-
-.about-list p {
-  margin: 0;
-  font-size: 15px;
-}
-
-@media (max-width: 991px) {
-  .about-avatar {
-    margin-top: 30px;
+  .about-text p mark {
+    font-weight: 600;
+    color: #20247b;
   }
-}
 
-.about-section .counter {
-  padding: 22px 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
-}
-.about-section .counter .count-data {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.about-section .counter .count {
-  font-weight: 700;
-  color: #20247b;
-  margin: 0 0 5px;
-}
-.about-section .counter p {
-  font-weight: 600;
-  margin: 0;
-}
+  .about-list {
+    padding-top: 10px;
+  }
+  .about-list .media {
+    padding: 5px 0;
+  }
+  .about-list label {
+    color: #20247b;
+    font-weight: 600;
+    width: 88px;
+    margin: 0;
+  }
+
+  .about-list p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  @media (max-width: 991px) {
+    .about-avatar {
+      margin-top: 30px;
+    }
+  }
+
+  .about-section .counter {
+    padding: 22px 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
+  }
+  .about-section .counter .count-data {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .about-section .counter .count {
+    font-weight: 700;
+    color: #20247b;
+    margin: 0 0 5px;
+  }
+  .about-section .counter p {
+    font-weight: 600;
+    margin: 0;
+  }
 </style>
 
 <% layout("/layouts/boilerplate") %>
-<div class="container mb-5">
+<div class="container">
+  <div class="cover-photo">
+    <img src="/uploads/cover.jpg" alt="Cover Photo" />
+  </div>
   <!-- Profile Header -->
-<div class="profile-card">
-  <div class="profile-avatar-wrapper">
-    <img src="<%= user.profilePicture %>" alt="Profile Picture" class="profile-avatar" />
-  </div>
-  <button class="edit-btn" data-bs-toggle="modal" data-bs-target="#edit-profile-modal">Edit Profile</button>
-  <div class="profile-info">
-    <h2>Welcome: <%= user.name %></h2>
-    <p><strong>Email:</strong> <%= user.email %></p>
-    <p><strong>Member Since:</strong> <%= new Date(user.createdAt).toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' }) %></p>
-    <p><strong>Bio:</strong> <%= user.bio %></p>
+  <div class="profile-card">
+    <div class="profile-avatar-wrapper">
+      <img
+        src="<%= user.profilePicture %>"
+        alt="Profile Picture"
+        class="profile-avatar"
+      />
+    </div>
+    <button
+      class="edit-btn"
+      data-bs-toggle="modal"
+      data-bs-target="#edit-profile-modal"
+    >
+      Edit Profile
+    </button>
+    <div class="profile-info">
+      <h2>User: <%= user.name %></h2>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p>
+        <strong>Member Since:</strong> <%= new
+        Date(user.createdAt).toLocaleString('default', { day: 'numeric', month:
+        'long', year: 'numeric' }) %>
+      </p>
+      <p><strong>Bio:</strong> <%= user.bio %></p>
 
-    <div class="row about-list mb-3">
-      <div class="col-md-6">
+      <div class="row about-list mb-3">
+        <div class="col-md-6">
           <div class="media">
-              <label>Street</label>
-              <p><%= user.address.street %></p>
+            <label>Street</label>
+            <p><%= user.address.street %></p>
           </div>
           <div class="media">
-              <label>State</label>
-              <p><%= user.address.state %></p>
+            <label>State</label>
+            <p><%= user.address.state %></p>
           </div>
           <div class="media">
-              <label>Zip Code</label>
-              <p><%= user.address.zipCode %></p>
+            <label>Zip Code</label>
+            <p><%= user.address.zipCode %></p>
           </div>
           <div class="media">
-              <label>Country</label>
-              <p><%= user.address.country %></p>
+            <label>Country</label>
+            <p><%= user.address.country %></p>
           </div>
+        </div>
+        <div class="col-md-6">
+          <div class="media">
+            <label>City</label>
+            <p><%= user.address.city %></p>
+          </div>
+          <div class="media">
+            <label>Phone</label>
+            <p>+91-98*******</p>
+          </div>
+          <div class="media">
+            <label>WhatsApp</label>
+            <p>+91-98*******</p>
+          </div>
+          <div class="media">
+            <label>Status</label>
+            <p>Active</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-          <div class="media">
-              <label>City</label>
-              <p><%= user.address.city %></p>
-          </div>
-          <div class="media">
-              <label>Phone</label>
-              <p>+91-98*******</p>
-          </div>
-          <div class="media">
-              <label>WhatsApp</label>
-              <p>+91-98*******</p>
-          </div>
-          <div class="media">
-              <label>Status</label>
-              <p>Active</p>
-          </div>
-      </div>
-  </div>
 
-    <div class="social-links">
-      <a href="<%= user.socialMediaLinks.linkedin %>" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="<%= user.socialMediaLinks.instagram %>" target="_blank"><i class="fab fa-instagram"></i> LinkedIn</a>
-      <a href="<%= user.socialMediaLinks.facebook %>" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-      <a href="<%= user.socialMediaLinks.twitter %>" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+      <div class="social-links">
+        <a href="<%= user.socialMediaLinks.linkedin %>" target="_blank"
+          ><i class="fab fa-linkedin"></i> LinkedIn</a
+        >
+        <a href="<%= user.socialMediaLinks.instagram %>" target="_blank"
+          ><i class="fab fa-instagram"></i> Instagram</a
+        >
+        <a href="<%= user.socialMediaLinks.facebook %>" target="_blank"
+          ><i class="fab fa-facebook"></i> Facebook</a
+        >
+        <a href="<%= user.socialMediaLinks.twitter %>" target="_blank"
+          ><i class="fab fa-twitter"></i> Twitter</a
+        >
+      </div>
     </div>
   </div>
-</div>
 
-<div class="custom-counter mb-5">
-  <div class="row custom-counter-row">
+  <div class="custom-counter mb-5">
+    <div class="row custom-counter-row">
       <div class="col-6 col-lg-3 custom-count-column">
-          <div class="custom-count-data text-center">
-              <h6 class="custom-count h2" data-to="500" data-speed="500">500</h6>
-              <p class="m-0px font-w-600">Homes Listed</p>
-          </div>
+        <div class="custom-count-data text-center">
+          <h6 class="custom-count h2" data-to="500" data-speed="500">500</h6>
+          <p class="m-0px font-w-600">Homes Listed</p>
+        </div>
       </div>
       <div class="col-6 col-lg-3 custom-count-column">
-          <div class="custom-count-data text-center">
-              <h6 class="custom-count h2" data-to="150" data-speed="150">150</h6>
-              <p class="m-0px font-w-600">Active Hosts</p>
-          </div>
+        <div class="custom-count-data text-center">
+          <h6 class="custom-count h2" data-to="150" data-speed="150">150</h6>
+          <p class="m-0px font-w-600">Active Hosts</p>
+        </div>
       </div>
       <div class="col-6 col-lg-3 custom-count-column">
-          <div class="custom-count-data text-center">
-              <h6 class="custom-count h2" data-to="100" data-speed="100">100</h6>
-              <p class="m-0px font-w-600">Verified Homes</p>
-          </div>
+        <div class="custom-count-data text-center">
+          <h6 class="custom-count h2" data-to="100" data-speed="100">100</h6>
+          <p class="m-0px font-w-600">Verified Homes</p>
+        </div>
       </div>
       <div class="col-6 col-lg-3 custom-count-column">
-          <div class="custom-count-data text-center">
-              <h6 class="custom-count h2" data-to="450" data-speed="450">450</h6>
-              <p class="m-0px font-w-600">Successful Bookings</p>
-          </div>
+        <div class="custom-count-data text-center">
+          <h6 class="custom-count h2" data-to="450" data-speed="450">450</h6>
+          <p class="m-0px font-w-600">Successful Bookings</p>
+        </div>
       </div>
+    </div>
   </div>
-</div>
 
   <!-- Tabs -->
   <div class="tabs">
@@ -430,11 +468,11 @@
     <h3>Recent Activity</h3>
     <ul>
       <li class="list-item">
-        <img src="https://via.placeholder.com/50" alt="User">
+        <img src="https://via.placeholder.com/50" alt="User" />
         <p><strong>You</strong> updated your profile picture.</p>
       </li>
       <li class="list-item">
-        <img src="https://via.placeholder.com/50" alt="User">
+        <img src="https://via.placeholder.com/50" alt="User" />
         <p><strong>You</strong> joined the "Designers Hub" community.</p>
       </li>
     </ul>
@@ -444,11 +482,11 @@
     <h3>Friends/Connections</h3>
     <ul>
       <li class="list-item">
-        <img src="https://via.placeholder.com/50" alt="Friend">
+        <img src="https://via.placeholder.com/50" alt="Friend" />
         <p><strong>Jane Smith</strong> - Active Now</p>
       </li>
       <li class="list-item">
-        <img src="https://via.placeholder.com/50" alt="Friend">
+        <img src="https://via.placeholder.com/50" alt="Friend" />
         <p><strong>Michael Brown</strong> - Offline</p>
       </li>
     </ul>
@@ -457,11 +495,11 @@
   <div class="tab-content" id="achievements">
     <h3>Achievements</h3>
     <div class="achievement">
-      <img src="https://via.placeholder.com/80" alt="Achievement">
+      <img src="https://via.placeholder.com/80" alt="Achievement" />
       <p><strong>Level 1 Badge</strong></p>
     </div>
     <div class="achievement">
-      <img src="https://via.placeholder.com/80" alt="Achievement">
+      <img src="https://via.placeholder.com/80" alt="Achievement" />
       <p><strong>Top Contributor</strong></p>
     </div>
   </div>
@@ -477,60 +515,154 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="edit-profile-modal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="edit-profile-modal"
+  tabindex="-1"
+  aria-labelledby="editProfileLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <!-- Form -->
-        <form action="/profile?_method=PUT" method="POST" id="edit-profile-form" enctype="multipart/form-data">
+        <form
+          action="/profile?_method=PUT"
+          method="POST"
+          id="edit-profile-form"
+          enctype="multipart/form-data"
+        >
           <div class="mb-3">
-            <label for="profilePicture" class="form-label">Upload Profile Picture</label>
-            <input type="file" name="profilePicture" id="profilePicture" class="form-control" placeholder="Paste the URL here">
+            <label for="profilePicture" class="form-label"
+              >Upload Profile Picture</label
+            >
+            <input
+              type="file"
+              name="profilePicture"
+              id="profilePicture"
+              class="form-control"
+              placeholder="Paste the URL here"
+            />
             <label for="image" class="form-label">Upload New Image</label>
           </div>
           <div class="mb-3">
             <label for="bio" class="form-label">Bio:</label>
-            <textarea name="bio" id="bio" class="form-control" placeholder="Tell us about yourself"><%= user.bio %></textarea>
+            <textarea
+              name="bio"
+              id="bio"
+              class="form-control"
+              placeholder="Tell us about yourself"
+            >
+<%= user.bio %></textarea
+            >
           </div>
           <div class="mb-3">
             <label for="facebook" class="form-label">Facebook:</label>
-            <input type="text" name="socialMediaLinks[facebook]" value="<%= user.socialMediaLinks.facebook %>" id="facebook" class="form-control" placeholder="Facebook URL">
+            <input
+              type="text"
+              name="socialMediaLinks[facebook]"
+              value="<%= user.socialMediaLinks.facebook %>"
+              id="facebook"
+              class="form-control"
+              placeholder="Facebook URL"
+            />
           </div>
           <div class="mb-3">
             <label for="twitter" class="form-label">Twitter:</label>
-            <input type="text" name="socialMediaLinks[twitter]" value="<%= user.socialMediaLinks.twitter %>" id="twitter" class="form-control" placeholder="Twitter URL">
+            <input
+              type="text"
+              name="socialMediaLinks[twitter]"
+              value="<%= user.socialMediaLinks.twitter %>"
+              id="twitter"
+              class="form-control"
+              placeholder="Twitter URL"
+            />
           </div>
           <div class="mb-3">
             <label for="instagram" class="form-label">Instagram:</label>
-            <input type="text" name="socialMediaLinks[instagram]" value="<%= user.socialMediaLinks.instagram %>" id="instagram" class="form-control" placeholder="Instagram URL">
+            <input
+              type="text"
+              name="socialMediaLinks[instagram]"
+              value="<%= user.socialMediaLinks.instagram %>"
+              id="instagram"
+              class="form-control"
+              placeholder="Instagram URL"
+            />
           </div>
           <div class="mb-3">
             <label for="linkedin" class="form-label">LinkedIn:</label>
-            <input type="text" name="socialMediaLinks[linkedin]" value="<%= user.socialMediaLinks.linkedin %>" id="linkedin" class="form-control" placeholder="LinkedIn URL">
+            <input
+              type="text"
+              name="socialMediaLinks[linkedin]"
+              value="<%= user.socialMediaLinks.linkedin %>"
+              id="linkedin"
+              class="form-control"
+              placeholder="LinkedIn URL"
+            />
           </div>
           <div class="mb-3">
             <label for="street" class="form-label">Street:</label>
-            <input type="text" name="address[street]" value="<%= user.address.street %>" id="street" class="form-control" placeholder="Street">
+            <input
+              type="text"
+              name="address[street]"
+              value="<%= user.address.street %>"
+              id="street"
+              class="form-control"
+              placeholder="Street"
+            />
           </div>
           <div class="mb-3">
             <label for="city" class="form-label">City:</label>
-            <input type="text" name="address[city]" value="<%= user.address.city %>" id="city" class="form-control" placeholder="City">
+            <input
+              type="text"
+              name="address[city]"
+              value="<%= user.address.city %>"
+              id="city"
+              class="form-control"
+              placeholder="City"
+            />
           </div>
           <div class="mb-3">
             <label for="state" class="form-label">State:</label>
-            <input type="text" name="address[state]" value="<%= user.address.state %>" id="state" class="form-control" placeholder="State">
+            <input
+              type="text"
+              name="address[state]"
+              value="<%= user.address.state %>"
+              id="state"
+              class="form-control"
+              placeholder="State"
+            />
           </div>
           <div class="mb-3">
             <label for="zipCode" class="form-label">Zip Code:</label>
-            <input type="text" name="address[zipCode]" value="<%= user.address.zipCode %>" id="zipCode" class="form-control" placeholder="Zip Code">
+            <input
+              type="text"
+              name="address[zipCode]"
+              value="<%= user.address.zipCode %>"
+              id="zipCode"
+              class="form-control"
+              placeholder="Zip Code"
+            />
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Country:</label>
-            <input type="text" name="address[country]" value="<%= user.address.country %>" id="country" class="form-control" placeholder="Country">
+            <input
+              type="text"
+              name="address[country]"
+              value="<%= user.address.country %>"
+              id="country"
+              class="form-control"
+              placeholder="Country"
+            />
           </div>
           <button type="submit" class="btn btn-primary">Update Profile</button>
         </form>
@@ -541,29 +673,29 @@
 
 <script>
   // Tab Switching Logic
-  const tabs = document.querySelectorAll('.tab');
-  const contents = document.querySelectorAll('.tab-content');
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".tab-content");
 
   tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
-      contents.forEach((c) => c.classList.remove('active'));
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      contents.forEach((c) => c.classList.remove("active"));
 
-      tab.classList.add('active');
-      document.querySelector(`#${tab.dataset.tab}`).classList.add('active');
+      tab.classList.add("active");
+      document.querySelector(`#${tab.dataset.tab}`).classList.add("active");
     });
   });
 
   //Counter
   document.addEventListener("DOMContentLoaded", function () {
-    const counters = document.querySelectorAll('.custom-count');
-    
+    const counters = document.querySelectorAll(".custom-count");
+
     // Function to animate the counter
     function animateCounter(counter) {
-      const target = parseInt(counter.getAttribute('data-to'));
-      const speed = parseInt(counter.getAttribute('data-speed'));
+      const target = parseInt(counter.getAttribute("data-to"));
+      const speed = parseInt(counter.getAttribute("data-speed"));
       let current = 0;
-      
+
       // Increment function
       function increment() {
         if (current < target) {
@@ -574,26 +706,25 @@
           counter.textContent = target; // Ensure it ends at the target value
         }
       }
-  
+
       increment();
     }
-  
+
     // Check if counter is in the viewport and animate it
     function checkCountersInView() {
-      counters.forEach(counter => {
+      counters.forEach((counter) => {
         const rect = counter.getBoundingClientRect();
         if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-          if (!counter.classList.contains('counting')) {
-            counter.classList.add('counting');
+          if (!counter.classList.contains("counting")) {
+            counter.classList.add("counting");
             animateCounter(counter);
           }
         }
       });
     }
-  
+
     // Run the check when the page is loaded or scrolled
-    window.addEventListener('scroll', checkCountersInView);
+    window.addEventListener("scroll", checkCountersInView);
     checkCountersInView(); // Initial check
-  });  
-  
+  });
 </script>

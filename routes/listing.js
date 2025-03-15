@@ -21,6 +21,7 @@ const validateListing = (req, res, next) => {
   }
 };
 
+
 // Index Route
 router.get(
   "/",
@@ -62,7 +63,6 @@ router.post(
 );
 
 // Show Route
-// Show Route
 router.get(
   "/:id",
   wrapAsync(async (req, res) => {
@@ -77,7 +77,7 @@ router.get(
       .populate("owner");
 
     if (!listing) {
-      req.flash("error", "Listing you requested for does not exist");
+      req.flash("error", "Listing you requested does not exist");
       return res.redirect("/listings");
     }
 
@@ -90,8 +90,8 @@ router.get(
       averageRating = (totalRating / reviewCount).toFixed(1); // Rounded to 1 decimal place
     }
 
-    // Pass reviewCount and listing data to the template
-    res.render("listings/show.ejs", { listing, reviewCount, averageRating });
+    // ✅ Pass currentUser along with other data
+    res.render("listings/show.ejs", { listing, reviewCount, averageRating, currentUser: req.user });
   })
 );
 

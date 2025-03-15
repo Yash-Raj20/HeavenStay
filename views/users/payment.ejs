@@ -1,0 +1,274 @@
+<style>
+  .highlight-box {
+    background-color: #fef7f7;
+    border: 1px solid #f8d7da;
+    color: #b71c1c;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  .section-title {
+    font-weight: bold;
+  }
+  .custom-btn {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  .custom-btn:hover {
+    background-color: #e3314a;
+  }
+  .social-login .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .price-details {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  .divider span {
+    padding: 0 10px;
+    color: #999;
+  }
+</style>
+
+<% layout("/layouts/boilerplate") %> <% if (currentUser) { %>
+<!-- Left Column -->
+<div class="container">
+  <div class="row">
+    <!-- Left Side (Trip Details and Payment Section) -->
+    <div class="col-md-7">
+      <h2 class="mb-4">Confirm and pay</h2>
+
+      <!-- Trip Details -->
+      <div class="highlight-box mb-4">
+        <p class="mb-0">
+          <strong>Good price.</strong> Your dates are ₹935 less than the avg.
+          nightly rate over the last 3 months.
+        </p>
+      </div>
+      <div>
+        <h5>Your trip</h5>
+        <p><strong>Dates:</strong> 10–11 Jan 2025</p>
+        <p><strong>Guests:</strong> 1 guest</p>
+      </div>
+
+      <!-- Payment Section -->
+      <h5 class="mt-4">Pay with</h5>
+      <select class="form-select mb-3">
+        <option selected>UPI</option>
+        <option>Credit Card</option>
+      </select>
+      <div>
+        <input type="radio" name="upi" id="qr" checked />
+        <label for="qr">Pay using UPI QR code</label> <br />
+        <input type="radio" name="upi" id="id" />
+        <label for="id">UPI ID</label>
+      </div>
+
+      <!-- Cancellation Policy -->
+      <h5 class="mt-4">Cancellation policy</h5>
+      <p>
+        <strong>Free cancellation for 48 hours.</strong> Cancel before 3 Jan for
+        a partial refund.
+      </p>
+
+      <!-- Ground Rules -->
+      <h5 class="mt-4">Ground rules</h5>
+      <ul>
+        <li>Follow the house rules</li>
+        <li>Treat your Host’s home like your own</li>
+      </ul>
+
+      <!-- Confirm Button -->
+      <button class="btn custom-btn w-100">Confirm and pay</button>
+    </div>
+
+    <!-- Right Side (Price Details) -->
+    <div class="col-md-5">
+      <div class="price-details">
+        <div class="d-flex mb-3">
+          <img
+            src="https://via.placeholder.com/60"
+            class="rounded"
+            alt="Room Image"
+          />
+          <div class="ms-3">
+            <p class="mb-1">
+              <strong>SeaBatical Beach Stay Studio Apt</strong>
+            </p>
+            <p class="text-muted mb-1">Room in home</p>
+            <p class="mb-0">
+              <i class="bi bi-star-fill text-warning"></i> 4.9 (130 reviews) •
+              Superhost
+            </p>
+          </div>
+        </div>
+        <hr />
+        <h5 class="mb-3">Price details</h5>
+        <div class="d-flex justify-content-between">
+          <p>₹3,399 x 1 night</p>
+          <p>₹3,399</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <p>Airbnb service fee</p>
+          <p>₹479.86</p>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <p>Taxes</p>
+          <p>₹407.88</p>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+          <h5>Total (INR)</h5>
+          <h5>₹4,286.74</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } else { %>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-md-7 mb-4">
+      <h2 class="mb-4">Confirm and pay</h2>
+
+      <!-- Highlight Box -->
+      <div class="highlight-box mb-4">
+        <p class="mb-0">
+          <strong>Good price.</strong> Your dates are
+          <span>₹850 less</span> than the avg. nightly rate over the last 3
+          months.
+        </p>
+      </div>
+
+      <!-- Trip Details -->
+      <div class="mb-4">
+        <h5 class="section-title mb-3">Your trip</h5>
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="mb-1"><strong>Dates</strong></p>
+            <p>6–7 Jan 2025</p>
+          </div>
+          <a href="#" class="text-decoration-none">Edit</a>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="mb-1"><strong>Guests</strong></p>
+            <p>1 guest</p>
+          </div>
+          <a href="#" class="text-decoration-none">Edit</a>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <div class="mb-4">
+        <h5 class="section-title mb-3">Log in or sign up to book</h5>
+        <form>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country/Region</label>
+            <select class="form-select">
+              <option>India (+91)</option>
+              <option>United States (+1)</option>
+              <option>United Kingdom (+44)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone number</label>
+            <input
+              type="text"
+              id="phone"
+              class="form-control"
+              placeholder="Phone number"
+            />
+          </div>
+          <button type="submit" class="btn custom-btn w-100 py-2">
+            Continue
+          </button>
+        </form>
+      </div>
+
+      <!-- Social Login -->
+      <div class="divider mb-4"><span>or</span></div>
+      <div class="social-login">
+        <button
+          class="btn btn-outline-primary d-flex align-items-center justify-content-center"
+        >
+          <i class="bi bi-facebook me-2"></i> Continue with Facebook
+        </button>
+        <a
+          href="/auth/google" class="btn btn-outline-danger d-flex align-items-center justify-content-center"
+        >
+          <i class="bi bi-google me-2"></i> Continue with Google
+      </a>
+        <button
+          class="btn btn-outline-dark d-flex align-items-center justify-content-center"
+        >
+          <i class="bi bi-apple me-2"></i> Continue with Apple
+        </button>
+      </div>
+      <div class="text-center">
+        <a href="#" class="text-decoration-none">Continue with email</a>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-md-5">
+      <div class="price-details">
+        <div class="d-flex mb-3">
+          <img
+            src="https://via.placeholder.com/60"
+            class="rounded"
+            alt="Room Image"
+          />
+          <div class="ms-3">
+            <p class="mb-1">
+              <strong>SeaBatical Beach Stay Studio Apt</strong>
+            </p>
+            <p class="text-muted mb-1">Room in home</p>
+            <p class="mb-0">
+              <i class="bi bi-star-fill text-warning"></i> 4.9 (130 reviews) •
+              Superhost
+            </p>
+          </div>
+        </div>
+        <hr />
+        <h5 class="mb-3">Price details</h5>
+        <div class="d-flex justify-content-between">
+          <p>₹3,399 x 1 night</p>
+          <p>₹3,399</p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <p>Airbnb service fee</p>
+          <p>₹479.86</p>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <p>Taxes</p>
+          <p>₹407.88</p>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+          <h5>Total (INR)</h5>
+          <h5>₹4,286.74</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>

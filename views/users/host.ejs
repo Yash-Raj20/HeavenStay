@@ -1,0 +1,214 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container my-5">
+  <div class="row">
+    <!-- Host Profile Card (Left Side) -->
+    <div class="col-md-4">
+      <div class="card text-center p-4 shadow-lg border-0 rounded-4">
+        <div class="position-relative mx-auto">
+          <!-- Clickable Image -->
+          <a href="#" data-bs-toggle="modal" data-bs-target="#hostModal">
+            <img
+              src="<%= owner.profilePicture || '/image/user.jpg' %>"
+              alt="Host Profile Picture"
+              class="rounded-circle border border-3 border-primary shadow-sm"
+              width="120"
+            />
+          </a>
+          <div
+            class="verified-badge position-absolute top-0 end-0 bg-success text-white px-2 py-1 rounded-pill"
+          >
+            ✔ Verified
+          </div>
+        </div>
+        <h3 class="mt-3 fw-bold text-dark"><%= owner.name %></h3>
+        <p class="text-muted fs-5">🏡 Host</p>
+        <div class="d-flex justify-content-between mt-3 px-3">
+          <div>
+            <h6 class="mb-0 fs-5"><%= reviewCount > 0 ? reviewCount : "145" %></h6>
+            <small class="text-muted">Reviews</small>
+          </div>
+          <div>
+            <h6 class="mb-0 fs-5"><%= reviewCount > 0 ? `${averageRating}` : "4.5" %><span class="text-warning">★</span></h6>
+            <small class="text-muted">Rating</small>
+          </div>
+          <div>
+            <h6 class="mb-0 fs-5">
+              <%= new Date().getFullYear() - new Date(owner.createdAt).getFullYear() %>
+            </h6>
+            <small class="text-muted">Years hosting</small>
+          </div>
+        </div>
+      </div>
+      <hr class="my-3" />
+      <div class="text-start">
+        <h6 class="fw-bold">Confirmed Information</h6>
+        <ul class="list-unstyled">
+          <li>✔ Identity Verified</li>
+          <li>✔ Email Address</li>
+          <li>✔ Phone Number</li>
+        </ul>
+        <a href="#" class="text-danger">⚠ Report this profile</a>
+      </div>
+    </div>
+
+    <!-- Host Details Modal -->
+    <div
+      class="modal fade"
+      id="hostModal"
+      tabindex="-1"
+      aria-labelledby="hostModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-header">
+            <h5 class="modal-title" id="hostModalLabel">Sweet Host</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <img
+              src="<%= owner.profilePicture || '/image/user.jpg' %>"
+              alt="Host Profile Picture"
+              class=" border border-3 border-primary shadow-sm"
+              width="300"
+              height="280"
+            />
+            <h3 class="mt-3 fw-bold text-dark"><%= owner.name %></h3>
+            <p class="text-muted fs-5">🏡 Host</p>
+            <p>
+              <i class="fa-solid fa-location-dot"></i> Lives in <%=
+              owner.address.state %>, <%= owner.address.country %>
+            </p>
+            <p><i class="fa-solid fa-comments"></i> Speaks English and Hindi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Host Details (Right Side) -->
+    <div class="col-md-8">
+      <h2 class="fw-bold text-dark">About <%= owner.name %></h2>
+      <p class="fs-6">
+        <i class="fa-solid fa-comments"></i> Speaks English and Hindi
+      </p>
+      <p class="fs-6">
+        <i class="fa-solid fa-location-dot"></i> Lives in <%=
+        owner.address.state %>, <%= owner.address.country %>
+      </p>
+      <p class=" fs-6 text-muted mb-5"><%= owner.bio || "No bio available." %></p>
+      <hr>
+
+      <!-- Reviews Section
+      <h3 class="mt-4 fw-bold">What Guests Say</h3>
+      <div class="row">
+        <% reviews.forEach(review => { %>
+          <div class="col-md-6">
+            <div class="border p-4 rounded-3 shadow-sm bg-light">
+              <p class="fst-italic">“<%= review.comment %>”</p>
+              <strong class="text-dark"><%= review.user.name %></strong> 
+              <span class="text-muted">- <%= new Date(review.date).toLocaleString('en-US', { month: 'long', year: 'numeric' }) %></span>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <a href="#" class="text-info fw-bold">Show more reviews →</a> -->
+
+      <!-- Listings Section -->
+      <h3 class="mt-4 fw-bold mb-3"><%= owner.name %>’s listings</h3>
+      <div id="listingsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% for(let i = 0; i < listings.length; i += 3) { %>
+          <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+            <div class="row">
+              <% for(let j = i; j < i + 3 && j < listings.length; j++) { %>
+              <div class="col-md-4">
+                <a
+                  href="/listings/<%= listings[j]._id %>"
+                  class="text-decoration-none text-dark"
+                >
+                  <div
+                    class="card border-0 shadow-sm mx-auto"
+                    style="border-radius: 12px; overflow: hidden"
+                  >
+                    <img
+                      src="<%= listings[j].images && listings[j].images.length > 0 ? listings[j].images[0].url : '/image/default-listing.jpg' %>"
+                      class="card-img-top"
+                      style="height: 200px; object-fit: cover"
+                    />
+                    <div class="card-body p-3">
+                      <p class="fw-bold mb-1">
+                        <%= listings[j].category || 'Home' %>
+                      </p>
+                      <h6 class="text-muted text-truncate">
+                        <%= listings[j].title %>
+                      </h6>
+                      <h6 class="text-muted text-truncate">
+                        <%= listings[j].location %>, <%= listings[j].country %>
+                      </h6>
+                      <div class="d-flex align-items-center mt-2">
+                        <span class="me-1 text-warning">★</span>
+                        <p class="mb-0 fw-semibold">
+                          <%= listings[j].rating %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <!-- Left & Right Buttons -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#listingsCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#listingsCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+
+    <style>
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5); /* Makes buttons visible */
+        border-radius: 50%;
+        padding: 10px;
+        margin-bottom: 50px;
+      }
+
+      .verified-badge {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .card {
+        transition: 0.3s ease-in-out;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </div>
+</div>

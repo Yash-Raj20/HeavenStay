@@ -8,6 +8,8 @@ const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
+const Listing = require('../models/listing.js');
+const Review = require('../models/review.js');
 
 const upload = multer({ storage });
 require("dotenv").config();
@@ -21,10 +23,18 @@ router.get("/signup", (req, res) => {
   res.render("users/signup.ejs");
 });
 
+
 // Users Profile Routes
 router.get("/profile/:id", (req, res) => {
   res.render("users/profile.ejs", { user: req.user });
 });
+
+// Payment Routes
+router.get("/payment", (req, res) => {
+  const userLoggedIn = req.session.user ? true : false; // Check login
+  res.render("users/payment.ejs", { userLoggedIn });
+});
+
 
 // Login route
 router.get("/login", (req, res) => {
@@ -151,19 +161,20 @@ router.post("/forgot-password", async (req, res) => {
 
     // Send reset link via email
     const transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
+      service: 'gmail',
+      secure: true,
       port: 587,
       auth: {
-        user: process.env.EMAIL, // Get email from .env
-        pass: process.env.EMAIL_PASSWORD, // Get password from .env
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS, 
       },
     });
 
     // Send reset email
-    const resetLink = `http://localhost:4000/reset-password/${resetToken}`;
+    const resetLink = `http://localhost:8080/reset-password/${resetToken}`;
     const mailOptions = {
       to: user.email,
-      from: "ratneshkumarbhr987@gmail.com",
+      from: "ratneshkumarstm987@gmail.com",
       subject: "Password Reset Request",
       html: `
         <p>Hello,</p>
@@ -198,7 +209,7 @@ router.get("/reset-password/:token", async (req, res) => {
       return res.redirect("/forgot-password");
     }
 
-    res.render("reset-password", { token });
+    res.render("users/reset-password", { token });
   } catch (error) {
     console.error("Error in reset-password route:", error);
     req.flash("error", "Something went wrong, please try again.");
@@ -274,6 +285,29 @@ router.put(
   })
 );
 
+// Route for get listing owner profile
+router.get("/host/:id", async (req, res) => {
+  try {
+    const owner = await User.findById(req.params.id);
+    if (!owner) return res.status(404).send("Host not found");
+
+    const listings = await Listing.find({ owner: owner._id });
+    const reviews = await Review.find({ host: owner._id }).populate("user");
+
+    const reviewCount = reviews.length;
+    const averageRating = reviewCount > 0
+      ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount).toFixed(2)
+      : "N/A";
+
+    res.render("users/host.ejs", { owner, listings, reviews, reviewCount, averageRating });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+
+
 
 // Route to initiate Google login
 router.get(
@@ -293,5 +327,49 @@ router.get(
     res.redirect("/listings"); // Redirect after successful login
   }
 );
+
+
+// Handle form submission
+router.post("/send-message", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  // Validate required fields
+  if (!name || !email || !message) {
+    req.flash("error", "❌ All fields are required.");
+    return res.redirect("/contact");
+  }
+
+  try {
+    // Nodemailer Transport
+    let transporter = nodemailer.createTransport({
+      service: "gmail", // Use your email provider (Gmail, Outlook, etc.)
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    let mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER, // Your admin email to receive messages
+      subject: `New Contact Message from ${name}`,
+      text: `You received a new message:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log("Message received from:", name, email);
+
+    // Success flash message
+    req.flash("success", "✅ Message sent successfully!");
+    res.redirect("/contact"); // Redirect after successful email sending
+  } catch (error) {
+    console.error("Error sending email:", error);
+    req.flash("error", "❌ Failed to send message. Please try again.");
+    res.redirect("/contact"); // Redirect on error
+  }
+});
+
 
 module.exports = router;

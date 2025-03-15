@@ -10,7 +10,6 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    required: true,
   },
   googleId: String, // For storing Google OAuth ID
   profilePicture: {
